@@ -1,3 +1,8 @@
+# Local files to ignore
+simple_opt_out/
+simple_opt2_out/
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
