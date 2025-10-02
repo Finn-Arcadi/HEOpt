@@ -26,7 +26,7 @@ inputObj.k_tube = 25 #W/mK, conductivity of tube material; ~25 for steel
 inputObj.dT_t_max = 10 #C
 inputObj.core_height_max = .3048 #m
 inputObj.core_length_max = 0.4572 #m
-inputObj.core_depth_max = .127 #m
+inputObj.core_depth_max = 0.0793 #.127 #m
 inputObj.min_effectiveness = 0.75
 inputObj.max_dP_t_psi = 10 #psi
 inputObj.max_dP_s_Pa = 150 #Pa
@@ -59,4 +59,4 @@ print('\n EVALUATING OUTPUTS OF OPTIMIZATION PROBLEM \n')
 evalOutput = optF.evalopt(inputObj, 'eval')
 
 optF.printOutput(evalOutput)
-optF.getCSV(evalOutput, 'CSVdata')
+optF.getCSV(evalOutput, '20kW-LF-Inline')

@@ -42,7 +42,7 @@ def evalopt(inputObj, mode):
     prob.driver = om.ScipyOptimizeDriver()
     prob.driver.options['optimizer'] = 'SLSQP'
     prob.driver.options['maxiter'] = 1000
-    prob.driver.options['tol'] = 1e-8
+    prob.driver.options['tol'] = 1e-6
 
     prob.set_solver_print(level=0)
 

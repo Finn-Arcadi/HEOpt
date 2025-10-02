@@ -196,10 +196,10 @@ class HeatTransfer(om.ExplicitComponent):
         # b = ST/OD_tube #transverse pitch ratio
 
         #Calculate the tube thermal resistance
-        R_tube = np.log(OD_tube/ID_tube)/(2*np.pi*k_tube*L_tube)
+        R_tube = np.log(OD_tube/ID_tube) / (2*np.pi*k_tube*L_tube)
 
         #Calculate the cold-side convective heat transfer coefficient
-        L_char = (4*L_tube*(ST - OD_tube))/(2*(ST - OD_tube) + 2*L_tube) #characteristic length for cold-side
+        L_char = OD_tube #(4*L_tube*(ST - OD_tube))/(2*(ST - OD_tube) + 2*L_tube) #characteristic length for cold-side
         A_flow_s = NT*L_tube*(ST-OD_tube) #flow area for cold-side
         V_dot_s = m_dot_s / rho_s #volumetric flow rate for cold-side
         V_s = V_dot_s / A_flow_s #velocity for cold-side
@@ -213,7 +213,7 @@ class HeatTransfer(om.ExplicitComponent):
 
         Nu_D_s = Nu_D_s_pure * Nu_correction
 
-        h_s = (Nu_D_s * k_s) / OD_tube #convective heat transfer coefficient for cold-side
+        h_s = (Nu_D_s * k_s) / L_char #convective heat transfer coefficient for cold-side
 
         #Calculate the hot-side convective heat transfer coefficient
         A_flow_t = N_tubes * (np.pi * (ID_tube**2) / 4) #flow area for hot-side
@@ -232,7 +232,7 @@ class HeatTransfer(om.ExplicitComponent):
         h_t = (Nu_D_t * k_t) / ID_tube #convective heat transfer coefficient for hot-side
 
         #Calculate overall heat transfer coefficient
-        U = (1 - U_penalty) * (1 / ((1/h_t) + R_tube + (1/h_s))) #overall heat transfer coefficient
+        U = (1 - U_penalty) * (1 / ((1/h_t) + (R_tube * np.pi * OD_tube * L_tube) + (1/h_s))) #overall heat transfer coefficient
 
         #Calculate required heat transfer area
         A_req = Qdot / (U * LMTD) #required heat transfer area
